@@ -12,10 +12,10 @@ const posts = [
    { id: '12', title: 'Programming Music', body: '', published: false, author: '3' }
 ];
 const comments = [
-   { id: '100', text: 'Hello World!' },
-   { id: '101', text: 'How are you?' },
-   { id: '102', text: 'What are we going to learn today?' },
-   { id: '103', text: 'Bye for now!' }
+   { id: '100', text: 'Hello World!', author: '3' },
+   { id: '101', text: 'How are you?', author: '1' },
+   { id: '102', text: 'What are we going to learn today?', author: '2' },
+   { id: '103', text: 'Bye for now!', author: '1' }
 ];
 
 // GraphQL Scalar Types: String, Boolean, Int, Float, ID
@@ -37,6 +37,7 @@ const typeDefs = `
       email: String!
       age: Int
       posts: [Post!]!
+      comments: [Comment!]!
    }
 
    type Post {
@@ -50,6 +51,7 @@ const typeDefs = `
    type Comment {
       id: ID!
       text: String!
+      author: User!
    }
 `
 
@@ -103,10 +105,22 @@ const resolvers = {
          });
       } 
    },
+   Comment: {
+      author(parent, args, ctx, info) {
+         return users.find((user) => {
+            return user.id === parent.author;
+         });
+      }
+   },
    User: {
       posts(parent, args, ctx, info) {
          return posts.filter((post) => {
             return post.author === parent.id;
+         });
+      },
+      comments(parent, args, ctx, info) {
+         return comments.filter((comment) => {
+            return comment.author === parent.id;
          });
       }
    }

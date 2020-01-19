@@ -3,3 +3,13 @@
 // 2. Setup a "comments" array with four comments
 // 3. Setup a "comments" query with a resolver that returns all the comments
 // 4. Run a query to get all four comments with both id and text fields in GraphQL Playground (run the terminal command npm run start and in the browser go to localhost:4000)
+
+// Part II:
+// Goal: Setup a relationship between Comment and User
+// 1. Setup an author field on Comment
+// 2. Update all comments in the array to have a new author field (use one of the user ids as value)
+// 3. Create a resolver for the Comments author field that returns the user who wrote the comment
+// 4. Run a sample query that gets all comments and the author's name in GraphQL Playground (run the terminal command npm run start and in the browser go to localhost:4000)
+// 5. Setup a comments field on User
+// 6. Setup resolver for the User comments field that returns all comments belonging to that use
+// 7. Run a sample query that gets all users and all comments in GraphQL Playground (run the terminal command npm run start and in the browser go to localhost:4000)

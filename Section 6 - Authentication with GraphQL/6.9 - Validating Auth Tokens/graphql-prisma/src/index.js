@@ -1,0 +1,39 @@
+import { GraphQLServer, PubSub } from 'graphql-yoga';
+import db from './db';
+import Query from './resolvers/Query';
+import Mutation from './resolvers/Mutation';
+import Subscription from './resolvers/Subscription';
+import User from './resolvers/User';
+import Post from './resolvers/Post';
+import Comment from './resolvers/Comment';
+import prisma from './prisma';
+
+const pubsub = new PubSub();
+
+// Setup Server
+const server = new GraphQLServer({
+   typeDefs: './src/schema.graphql',
+   resolvers: { 
+      Query,
+      Mutation,
+      Subscription,
+      User,
+      Post,
+      Comment
+   },
+   context(request) {
+      // console.log(request);   // view what lives on request object argument
+      // console.log(request.request.headers);  // returns the headers object in a more manageable form
+      return {
+         db,
+         pubsub,
+         prisma,
+         request
+      };
+   }
+});
+
+// Start Server
+server.start(() => {
+   console.log('The server is up and running on port 4000!');
+});

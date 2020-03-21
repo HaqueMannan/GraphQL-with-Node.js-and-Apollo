@@ -1,0 +1,9 @@
+{
+   "presets": [
+      "env"                   // To support our dev server script
+      // "@babel/preset-env"     // To support our Jest test script
+   ],
+   "plugins": [
+      "transform-object-rest-spread"
+   ]
+}
